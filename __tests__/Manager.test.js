@@ -1,6 +1,6 @@
 const Manager = require('../lib/Manager.js');
 
-test('creates an manager object', () => {
+test('creates a manager object', () => {
     //create new manager test example
     const manager = new Manager('Dave', 2, 'test@example.com', 800-222-3333);
     //check employee name
