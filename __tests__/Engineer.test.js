@@ -1,16 +1,16 @@
 const Engineer = require('../lib/Engineer.js');
 
 test('creates an engineer object', () => {
-    //create new manager test example
+    //create new engineer test example
     const engineer = new Engineer('Dave', 2, 'test@example.com', 'github');
-    //check employee name
+    //check engineer name
     expect(engineer.name).toEqual(expect.any(String));
-    //check employee id
+    //check engineer id
     expect(engineer.id).toEqual(expect.any(Number));
-    //check employee email
+    //check engineer email
     expect(engineer.email).toContain('@');
-    //check github username
+    //check engineer username
     expect(engineer.github).toEqual(expect.any(String));
-    //check employee role
+    //check engineer role
     expect(engineer.getRole()).toEqual('Engineer');
 });
