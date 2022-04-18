@@ -5,6 +5,8 @@ const Engineer = require("./lib/Engineer.js");
 const Intern = require("./lib/Intern.js");
 const generatePage = require('./src/page-template');
 
+const team = [];
+
 const managerQuestions = () => {
     return inquirer.prompt([
         {
@@ -73,7 +75,22 @@ const managerQuestions = () => {
             }
         }
         }
-    ]);
+    ])
+    .then ((managerAnswers) => {
+        const manager = new Manager (managerAnswers.name, managerAnswers.id, managerAnswers.email, managerAnswers.phone)
+        team.push (manager)
+        switch(managerAnswers.addMember) {
+            case 'Add Engineer':
+                engineerQuestions();
+                break;
+            case 'Add Intern':
+                internQuestions();
+                break;
+            default: 
+            writeToFile('dist/index.html', generatePage(team))
+        }
+    }
+    )
 };
 
 const engineerQuestions = () => {
@@ -144,7 +161,22 @@ const engineerQuestions = () => {
             }
         }
         }
-    ]);
+    ])
+    .then ((engineerAnswers) => {
+        const engineer = new Engineer (engineerAnswers.name, engineerAnswers.id, engineerAnswers.email, engineerAnswers.github)
+        team.push (engineer)
+        switch(engineerAnswers.addMember) {
+            case 'Add Engineer':
+                engineerQuestions();
+                break;
+            case 'Add Intern':
+                internQuestions();
+                break;
+            default: 
+            writeToFile('dist/index.html', generatePage(team))
+        }
+    }
+    )
 };
 
 const internQuestions = () => {
@@ -215,95 +247,113 @@ const internQuestions = () => {
             }
         }
         }
-    ]);
-};
-
-const promptAddMemeber = teamData => {
-console.log(`
-=================
-Add a New Team Memeber
-=================
-`);
-
-
-// If there's no 'projects' array property, create one
-if (!teamData.projects) {
-    teamData.projects = [];
-}
-return inquirer
-    .prompt([
-    {
-        type: 'input',
-        name: 'name',
-        message: 'What is the name of your project? (Required)',
-        validate: nameInput => {
-        if (nameInput) {
-            return true;
-        } else {
-            console.log('You need to enter a project name!');
-            return false;
-        }
-        }
-    },
-    {
-        type: "list",
-        name: "addTeamMember",
-        message: "Please choose if you would like to add additional team members:",
-        choices: ['Add Engineer', 'Add Intern', 'No more members'],
-        validate: addTeamMemberInput => {
-            if (addTeamMemberInput) {
-                return true;
-            } else {
-                console.log('You need to make a selection!');
-                return false;
-            }
-            }
-    },
-    {
-        type: 'input',
-        name: 'link',
-        message: 'Enter the GitHub link to your project. (Required)',
-        validate: linkInput => {
-        if (linkInput) {
-            return true;
-        } else {
-            console.log('You need to enter a project GitHub link!');
-            return false;
-        }
-        }
-    },
-    {
-        type: 'confirm',
-        name: 'feature',
-        message: 'Would you like to feature this project?',
-        default: false
-    },
-    {
-        type: 'confirm',
-        name: 'confirmAddProject',
-        message: 'Would you like to enter another project?',
-        default: false
-    }
     ])
-    .then(memberData => {
-    teamData.projects.push(memberData);
-    if (memberData.confirmAddProject) {
-        return promptAddMemeber(teamData);
-    } else {
-        return teamData;
+    .then ((internAnswers) => {
+        const intern = new Intern (internAnswers.name, internAnswers.id, internAnswers.email, internAnswers.github)
+        team.push (intern)
+        switch(internAnswers.addMember) {
+            case 'Add Engineer':
+                engineerQuestions();
+                break;
+            case 'Add Intern':
+                internQuestions();
+                break;
+            default: 
+            writeToFile('dist/index.html', generatePage(team))
+        }
     }
+    )
+};
+
+managerQuestions();
+
+function writeToFile(filename, data) {
+    fs.writeFile(filename, data, (err) => {
+        if(err) throw err;
+        console.log('Page created! Check out index.html in this directory to see it!')
     });
 };
 
-managerQuestions()
-.then(promptAddMemeber)
-.then(teamData => {
-    const pageHTML = generatePage(teamData);
 
-    fs.writeFile('./dist/index.html', pageHTML, err => {
-    if (err) throw new Error(err);
+// .then(promptAddMemeber)
+// .then(teamData => {
+//     const pageHTML = generatePage(teamData);
 
-    console.log('Page created! Check out index.html in this directory to see it!');
-    });
-});
+//     fs.writeFile('./dist/index.html', pageHTML, err => {
+//     if (err) throw new Error(err);
+
+//     console.log('Page created! Check out index.html in this directory to see it!');
+//     });
+// });
+
+
+
+// const promptAddMemeber = teamData => {
+// console.log(`
+// =================
+// Add a New Team Memeber
+// =================
+// `);
+
+
+// // If there's no 'projects' array property, create one
+// if (!teamData.projects) {
+//     teamData.projects = [];
+// }
+// return inquirer
+//     .prompt([
+//     {
+//         type: 'input',
+//         name: 'name',
+//         message: 'What is the name of your project? (Required)',
+//         validate: nameInput => {
+//         if (nameInput) {
+//             return true;
+//         } else {
+//             console.log('You need to enter a project name!');
+//             return false;
+//         }
+//         }
+//     },
+//     {
+//         type: 'input',
+//         name: 'link',
+//         message: 'Enter the GitHub link to your project. (Required)',
+//         validate: linkInput => {
+//         if (linkInput) {
+//             return true;
+//         } else {
+//             console.log('You need to enter a project GitHub link!');
+//             return false;
+//         }
+//         }
+//     },
+//     {
+//         type: 'confirm',
+//         name: 'confirmAddProject',
+//         message: 'Would you like to enter another project?',
+//         default: false
+//     }
+//     ])
+//     .then(memberData => {
+//     teamData.projects.push(memberData);
+//     if (memberData.confirmAddProject) {
+//         return promptAddMemeber(teamData);
+//     } else {
+//         return teamData;
+//     }
+//     });
+// };
+
+// managerQuestions()
+// .then(promptAddMemeber)
+// .then(teamData => {
+//     const pageHTML = generatePage(teamData);
+
+//     fs.writeFile('./dist/index.html', pageHTML, err => {
+//     if (err) throw new Error(err);
+
+//     console.log('Page created! Check out index.html in this directory to see it!');
+//     });
+// });
 

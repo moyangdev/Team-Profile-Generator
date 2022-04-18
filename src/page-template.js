@@ -1,26 +1,26 @@
-//Create a function to generate html
-function generateMarkdown(data) {
-    
-    return `
-    <!DOCTYPE html>
-    <html lang="en">
-    
-    <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Team Profile</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Public+Sans:300i,300,500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    </head>
-    
-    <body>
-      <h1>${data.title}</h1>
-      <h2><a href="https://github.com/${data.github}">Github</a></h2>
-    </body>
-    </html>
-    `;
-};
-    
-module.exports = generateMarkdown;
+const Manager = require('../lib/Manager');
+const Engineer = require('../lib/Engineer')
+const Intern = require('../lib/Intern')
+
+function generatePage(team) {
+  console.log(team)
+return `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+  <title>Team Profile</title>
+</head>
+<body>
+<div class="jumbotron jumbotron-fluid bg-danger text-white">
+    <h1 class="display-4 text-center">My Team</h1>
+</div>
+</body>
+</html>
+    `
+}
+
+module.exports = generatePage;
