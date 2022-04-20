@@ -249,7 +249,7 @@ const internQuestions = () => {
         }
     ])
     .then ((internAnswers) => {
-        const intern = new Intern (internAnswers.name, internAnswers.id, internAnswers.email, internAnswers.github)
+        const intern = new Intern (internAnswers.name, internAnswers.id, internAnswers.email, internAnswers.school)
         team.push (intern)
         switch(internAnswers.addTeamMember) {
             case 'Add Engineer':
