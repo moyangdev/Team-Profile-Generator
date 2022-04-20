@@ -79,7 +79,7 @@ const managerQuestions = () => {
     .then ((managerAnswers) => {
         const manager = new Manager (managerAnswers.name, managerAnswers.id, managerAnswers.email, managerAnswers.phone)
         team.push (manager)
-        switch(managerAnswers.addMember) {
+        switch(managerAnswers.addTeamMember) {
             case 'Add Engineer':
                 engineerQuestions();
                 break;
@@ -165,7 +165,7 @@ const engineerQuestions = () => {
     .then ((engineerAnswers) => {
         const engineer = new Engineer (engineerAnswers.name, engineerAnswers.id, engineerAnswers.email, engineerAnswers.github)
         team.push (engineer)
-        switch(engineerAnswers.addMember) {
+        switch(engineerAnswers.addTeamMember) {
             case 'Add Engineer':
                 engineerQuestions();
                 break;
@@ -184,7 +184,7 @@ const internQuestions = () => {
         {
         type: "input",
         name: "name",
-        message: "What is the engineer's name? (Required)",
+        message: "What is the interns's name? (Required)",
         validate: nameInput => {
             if (nameInput) {
             return true;
@@ -251,7 +251,7 @@ const internQuestions = () => {
     .then ((internAnswers) => {
         const intern = new Intern (internAnswers.name, internAnswers.id, internAnswers.email, internAnswers.github)
         team.push (intern)
-        switch(internAnswers.addMember) {
+        switch(internAnswers.addTeamMember) {
             case 'Add Engineer':
                 engineerQuestions();
                 break;
