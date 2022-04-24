@@ -50,3 +50,7 @@ A link to the [code](https://github.com/moyangdev/Team-Profile-Generator):
 ```
 https://github.com/moyangdev/Team-Profile-Generator
 ```
+A link to the [demo video](https://drive.google.com/file/d/1e7GDkUsnV-UZZqxWDUXVmgaXNvfBv4-d/view):
+```
+https://drive.google.com/file/d/1e7GDkUsnV-UZZqxWDUXVmgaXNvfBv4-d/view
+```
