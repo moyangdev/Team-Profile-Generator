@@ -8,15 +8,15 @@ function generateTeam(team) {
     const teamArr = team[i];
     switch(teamArr.getRole()) {
       case 'Manager':
-        const manager = new Manager(teamArr.id, teamArr.name, teamArr.email, teamArr.officeNumber);
+        const manager = new Manager(teamArr.name, teamArr.id, teamArr.email, teamArr.officeNumber);
         cards.push(generateManager(manager));
         break;
       case 'Engineer':
-        const engineer = new Engineer(teamArr.id, teamArr.name, teamArr.email, teamArr.github);
+        const engineer = new Engineer(teamArr.name, teamArr.id, teamArr.email, teamArr.github);
         cards.push(generateEngineer(engineer));
         break;
       case 'Intern':
-        const intern = new Intern(teamArr.id, teamArr.name, teamArr.email, teamArr.school);
+        const intern = new Intern(teamArr.name, teamArr.id, teamArr.email, teamArr.school);
         cards.push(generateIntern(intern));
         break;
     }
