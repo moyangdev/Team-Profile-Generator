@@ -49,18 +49,18 @@ const managerQuestions = () => {
         }
         },
         {
-        type: "input",
-        name: "phone",
-        message: "Please enter an office number (Required)",
-        validate: phoneInput => {
-            if (phoneInput) {
-            return true;
-            } else {
-            console.log('Please enter an office number!');
-            return false;
+            type: "input",
+            name: "officeNumber",
+            message: "Please enter an email address (Required)",
+            validate: officeNumberInput => {
+                if (officeNumberInput) {
+                return true;
+                } else {
+                console.log('Please enter an email address!');
+                return false;
+                }
             }
-        }
-        },
+            },
         {
         type: "list",
         name: "addTeamMember",
@@ -77,7 +77,7 @@ const managerQuestions = () => {
         }
     ])
     .then ((managerAnswers) => {
-        const manager = new Manager (managerAnswers.name, managerAnswers.id, managerAnswers.email, managerAnswers.phone)
+        const manager = new Manager (managerAnswers.name, managerAnswers.id, managerAnswers.email, managerAnswers.officeNumber)
         team.push (manager)
         switch(managerAnswers.addTeamMember) {
             case 'Add Engineer':
