@@ -53,7 +53,7 @@ let generateEngineer = (Engineer) => {
       <ul class="list-group list-group-flush">
         <li class="list-group-item">ID: ${Engineer.getId()}</li>
         <li class="list-group-item">Email: <a href="mailto: ${Engineer.getEmail()}">${Engineer.getEmail()}</a></li>
-        <li class="list-group-item">GitHub: <a href="https://github.com/${Engineer.getGithub()}">${Engineer.getGithub()}</a></li>
+        <li class="list-group-item">GitHub: <a href="https://github.com/${Engineer.getGithub()}" target="_blank">${Engineer.getGithub()}</a></li>
       </ul>
     </div>
   </div>
