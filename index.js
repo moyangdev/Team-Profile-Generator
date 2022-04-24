@@ -51,12 +51,12 @@ const managerQuestions = () => {
         {
             type: "input",
             name: "officeNumber",
-            message: "Please enter an email address (Required)",
+            message: "Please enter an office number (Required)",
             validate: officeNumberInput => {
                 if (officeNumberInput) {
                 return true;
                 } else {
-                console.log('Please enter an email address!');
+                console.log('Please enter an office number!');
                 return false;
                 }
             }

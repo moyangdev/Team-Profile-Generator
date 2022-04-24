@@ -2,34 +2,81 @@ const Manager = require('../lib/Manager');
 const Engineer = require('../lib/Engineer')
 const Intern = require('../lib/Intern')
 
-// create the team section
-const generateteam = teamArr => {
+function generateTeam(team) {
+  let cards = []
+  for(let i = 0; i < team.length; i++) {
+    const teamArr = team[i];
+    switch(teamArr.getRole()) {
+      case 'Manager':
+        const manager = new Manager(teamArr.id, teamArr.name, teamArr.email, teamArr.officeNumber);
+        cards.push(generateManager(manager));
+        break;
+      case 'Engineer':
+        const engineer = new Engineer(teamArr.id, teamArr.name, teamArr.email, teamArr.github);
+        cards.push(generateEngineer(engineer));
+        break;
+      case 'Intern':
+        const intern = new Intern(teamArr.id, teamArr.name, teamArr.email, teamArr.school);
+        cards.push(generateIntern(intern));
+        break;
+    }
+  }
+  return cards.join(``)
+}
+
+let generateManager = (Manager) => {
   return `
-      <div class="flex-row justify-space-between">
-      ${teamArr
-        .map(({name, id, email, officeNumber, github, school}) => {
-          return `
-          <div class="card m-1 shadow" style="width: 18rem">
-          <div class='card-header text-dark'>
-            <h3 class="card-title">${name}</h3>
-            <h6 class="card-text"><i class="fa fa-mug-hot"></i> </h6>
-          </div>
-          <div class="card-body text-dark">
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item">ID: ${id}</li>
-              <li class="list-group-item">Email: ${email}</li>
-              <li class="list-group-item">Office Number: ${officeNumber}</li>
-              <li class="list-group-item">Github: ${github}</li>
-              <li class="list-group-item">School: ${school}</li>
-            </ul>
-          </div>
-        </div>
-        `;
-        })
-        .join('')}
-      </div>
-  `;
+  <div class="card m-1 shadow" style="width: 18rem">
+    <div class='card-header bg-primary text-white'>
+      <h3 class="card-title">${Manager.getName()}</h3>
+      <h6 class="card-text"><i class="fa fa-mug-hot"></i> ${Manager.getRole()}</h6>
+    </div>
+    <div class="card-body">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">ID: ${Manager.getId()}</li>
+        <li class="list-group-item">Email: ${Manager.getEmail()}</li>
+        <li class="list-group-item">Office Number: ${Manager.getNumber()}</li>
+      </ul>
+    </div>
+  </div>
+  `
+}
+
+let generateEngineer = (Engineer) => {
+  return `
+  <div class="card m-1 shadow" style="width: 18rem">
+    <div class='card-header bg-primary text-white'>
+      <h3 class="card-title">${Engineer.getName()}</h3>
+      <h6 class="card-text"><i class="fa fa-glasses"></i> ${Engineer.getRole()}</h6>
+    </div>
+    <div class="card-body">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">ID: ${Engineer.getId()}</li>
+        <li class="list-group-item">Email: ${Engineer.getEmail()}</li>
+        <li class="list-group-item">GitHub: ${Engineer.getGithub()}</li>
+      </ul>
+    </div>
+  </div>
+  `
 };
+
+let generateIntern = (Intern) => {
+  return `
+  <div class="card m-1 shadow" style="width: 18rem">
+    <div class='card-header bg-primary text-white'>
+      <h3 class="card-title">${Intern.getName()}</h3>
+      <h6 class="card-text"><i class="fa fa-user-graduate"></i> ${Intern.getRole()}</h6>
+    </div>
+    <div class="card-body">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">ID: ${Intern.getId()}</li>
+        <li class="list-group-item">Email: ${Intern.getEmail()}</li>
+        <li class="list-group-item">School: ${Intern.getSchool()}</li>
+      </ul>
+    </div>
+  </div>
+  `
+}
 
 function generatePage(team) {
   console.log(team)
@@ -47,10 +94,10 @@ return `
 </head>
 <body>
 <div class="jumbotron jumbotron-fluid bg-danger text-white">
-    <h1 class="display-4 text-center">My Team</h1>
+    <h1 class="display-5 text-center">My Team</h1>
 </div>
-<div>
-<h3>${generateteam(team)}</h3>
+<div class="d-flex flex-row flex-wrap justify-content-center">
+    ${generateTeam(team)}
 </div>
 </body>
 </html>
