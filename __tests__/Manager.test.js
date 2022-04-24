@@ -2,7 +2,7 @@ const Manager = require('../lib/Manager.js');
 
 test('creates a manager object', () => {
     //create new manager test example
-    const manager = new Manager('Dave', 2, 'test@example.com', 800-222-3333);
+    const manager = new Manager('Dave', 2, 'test@example.com', 1);
     //check manager name
     expect(manager.name).toEqual(expect.any(String));
     //check manager id
